@@ -6,7 +6,6 @@ public class BlobController : MonoBehaviour {
     public bool facingLeft = true;
     public float maxSpeed = 10;
     public float jumpAmount = 30f;
-    public bool stoppedUp = true;
     public int numJumps = 1;
     public int jumpCounter;
 
@@ -54,20 +53,24 @@ public class BlobController : MonoBehaviour {
         body.velocity = new Vector2(body.velocity.x, jumpAmount);
     }
 
+    //don't jump as high if the jump key is let go
+    //fall fast
+    void jumpAdjust() {
+        if (body.velocity.y < 0)
+        {
+            body.velocity += new Vector2(0, -0.1f);
+        }
+        else if (body.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            body.velocity += new Vector2(0, -1f);
+        } 
+    }
+
     // FixedUpdate not necessarily the same as frame update
     void FixedUpdate()
     {
         float move_x = Input.GetAxis("Horizontal");
-        bool pressedJump =  Input.GetButtonDown("Jump");
-
-        if (!Input.GetButtonUp("Jump"))
-        {
-            stoppedUp = true;
-        }
-        else
-        {
-            stoppedUp = false; 
-        } 
+        bool pressedJump =  Input.GetButtonDown("Jump"); 
         bool grounded = isGrounded();
         if (grounded) {
             jumpCounter = numJumps;
@@ -78,10 +81,11 @@ public class BlobController : MonoBehaviour {
             move(move_x);
         }
 
-        if (pressedJump && stoppedUp && (grounded || jumpCounter > 0)) {
+        if (pressedJump && (grounded || jumpCounter > 0)) {
             jump();
             jumpCounter--;
         }
+        jumpAdjust();
     }
 
     private bool isGrounded() {
