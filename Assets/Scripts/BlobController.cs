@@ -16,6 +16,7 @@ public class BlobController : MonoBehaviour {
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
         jumpCounter = numJumps;
+        transform.GetChild(0).GetComponent<Renderer>().enabled = false;
     }
 
     void Update()
@@ -108,6 +109,10 @@ public class BlobController : MonoBehaviour {
 
     public void increaseNumJumps() {
         numJumps++;
+    }
+
+    public void setStickWeapon() {
+        transform.GetChild(0).GetComponent<Renderer>().enabled = true;
     }
 
     public void setToStartPosition() {
