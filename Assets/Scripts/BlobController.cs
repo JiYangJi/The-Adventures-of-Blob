@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlobController : MonoBehaviour {
-    public bool facingLeft = true;
+    public bool facingRight = true;
     public float maxSpeed = 10;
     public float jumpAmount = 30f;
     public int numJumps = 1;
@@ -27,14 +27,9 @@ public class BlobController : MonoBehaviour {
         else {
             GetComponent<Animator>().SetBool("isMoving", false);
         }
-        if (isGrounded())
-        {
-            GetComponent<Animator>().SetBool("isJumping", false);
-        }
-        else
-        {
-            GetComponent<Animator>().SetBool("isJumping", true);
-        }
+        GetComponent<Animator>().SetBool("isJumping", !isGrounded());
+        this.transform.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack")); 
+         
     }
 
     void move(float amount) {
@@ -43,7 +38,7 @@ public class BlobController : MonoBehaviour {
     }
 
     void checkFlip(float amount) {
-        if ((amount > 0 && !facingLeft) || (amount < 0 && facingLeft))
+        if ((amount > 0 && !facingRight) || (amount < 0 && facingRight))
         {
             FlipLeftRight();
         }
@@ -107,7 +102,7 @@ public class BlobController : MonoBehaviour {
     void FlipLeftRight()
     {
 
-        facingLeft = !facingLeft; 
+        facingRight = !facingRight; 
         transform.localScale *= new Vector2(-1, 1);
     }
 
