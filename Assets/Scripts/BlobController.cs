@@ -21,16 +21,29 @@ public class BlobController : MonoBehaviour {
 
     void Update()
     {
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01)
+        GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01);
+        this.transform.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
+
+        bool grounded = isGrounded();
+        GetComponent<Animator>().SetBool("isJumping", !grounded);
+
+        float move_x = Input.GetAxis("Horizontal");
+        bool pressedJump = Input.GetButtonDown("Jump");
+        if (grounded)
         {
-            GetComponent<Animator>().SetBool("isMoving", true);
+            jumpCounter = numJumps;
         }
-        else {
-            GetComponent<Animator>().SetBool("isMoving", false);
+
+        if (!pressedJump)
+        {
+            move(move_x);
         }
-        GetComponent<Animator>().SetBool("isJumping", !isGrounded());
-        this.transform.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack")); 
-         
+        else if (grounded || jumpCounter > 0)
+        {
+            jump();
+            jumpCounter--;
+        }
+
     }
 
     void move(float amount) {
@@ -65,22 +78,6 @@ public class BlobController : MonoBehaviour {
     // FixedUpdate not necessarily the same as frame update
     void FixedUpdate()
     {
-        float move_x = Input.GetAxis("Horizontal");
-        bool pressedJump =  Input.GetButtonDown("Jump"); 
-        bool grounded = isGrounded();
-        if (grounded) {
-            jumpCounter = numJumps;
-        }
-
-        if (!pressedJump)
-        {
-            move(move_x);
-        }
-
-        if (pressedJump && (grounded || jumpCounter > 0)) {
-            jump();
-            jumpCounter--;
-        }
         jumpAdjust();
     }
 
