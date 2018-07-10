@@ -17,6 +17,7 @@ public class BlobController : MonoBehaviour {
         body.freezeRotation = true;
         jumpCounter = numJumps;
         transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+        Destroy(transform.GetChild(0).GetComponent<GameObject>());
     }
 
     void Update()
