@@ -107,6 +107,7 @@ public class BlobController : MonoBehaviour {
 
     public void increaseNumJumps() {
         numJumps++;
+        jumpCounter++;
     }
 
     public void setStickWeapon() {
