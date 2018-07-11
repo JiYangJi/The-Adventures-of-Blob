@@ -83,19 +83,17 @@ public class BlobController : MonoBehaviour {
     }
 
     private bool isGrounded() {
-        BoxCollider2D box = GetComponent<BoxCollider2D>();
-        RaycastHit2D[] results = new RaycastHit2D[1];
-        //check left and right, use pythagoras
-        float diagonal = Mathf.Sqrt(Mathf.Pow(box.size.y / 2f, 2) + Mathf.Pow(box.size.x / 2f, 2));
-        float horizontal = box.size.x / box.size.y * 0.90f;
-
-        int left = box.Raycast(new Vector2(-horizontal, -1), results, diagonal);
-        int right = box.Raycast(new Vector2(horizontal, -1), results, diagonal);
-        if (left + right > 0)
-        {
-            return true;
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        int platformMask = 1 << LayerMask.NameToLayer("Platforms");
+        float distance = 0.1f;
+        //check left and right
+        RaycastHit2D resultLeft = Physics2D.Raycast(bounds.min, Vector2.down, distance, platformMask);
+        RaycastHit2D resultRight = Physics2D.Raycast(bounds.min + new Vector3(bounds.size.x, 0, 0), 
+            Vector2.down, distance, platformMask);
+        if (resultLeft.collider == null && resultRight.collider == null) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     void FlipLeftRight()
