@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Falloff : MonoBehaviour {
 
-    public BlobController player;
+    public PlayerBlob player;
 
     // Use this for initialization
     void Start () {
-        player = GameObject.Find("Player").GetComponent<BlobController>();
+        player = GameObject.Find("Player").GetComponent<PlayerBlob>();
     }
 
     // Update is called once per frame
