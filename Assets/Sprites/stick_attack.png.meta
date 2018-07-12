@@ -92,16 +92,16 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 20
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7e7a56665542984798b507bade95266
+      spriteID: 7063028917d85624a941b5c2c3a27b50
       vertices: []
       indices: 
       edges: []
@@ -110,18 +110,18 @@ TextureImporter:
       name: stick_attack_1
       rect:
         serializedVersion: 2
-        x: 31
+        x: 100
         y: 0
-        width: 31
-        height: 20
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a150362526a1dca4ab32b1ae55c85894
+      spriteID: fb05bad607bc638438012f42a2eea661
       vertices: []
       indices: 
       edges: []
@@ -130,18 +130,18 @@ TextureImporter:
       name: stick_attack_2
       rect:
         serializedVersion: 2
-        x: 63
+        x: 200
         y: 0
-        width: 42
-        height: 20
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1431f2dccfdcc024f954f58577859ba3
+      spriteID: f265d8b755d8a5b41a4a58dcb24c0ea1
       vertices: []
       indices: 
       edges: []
@@ -150,18 +150,18 @@ TextureImporter:
       name: stick_attack_3
       rect:
         serializedVersion: 2
-        x: 108
+        x: 300
         y: 0
-        width: 50
-        height: 20
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 033d33191e6d1e14fa7632dc57099856
+      spriteID: 0e091d3f655050245befa55b9d49583e
       vertices: []
       indices: 
       edges: []
@@ -170,18 +170,18 @@ TextureImporter:
       name: stick_attack_4
       rect:
         serializedVersion: 2
-        x: 160
+        x: 400
         y: 0
-        width: 50
-        height: 20
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 214c175d7bcc0f041babb4ad1cce10d5
+      spriteID: 70e4cc4e56f7c6a4d8efff743c531f4d
       vertices: []
       indices: 
       edges: []
