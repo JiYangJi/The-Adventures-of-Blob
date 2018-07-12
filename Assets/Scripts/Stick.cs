@@ -7,19 +7,16 @@ public class Stick : MonoBehaviour {
     public PlayerBlob player;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         player = GameObject.Find("Player").GetComponent<PlayerBlob>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
         player.setStickWeapon();
         Destroy(this.gameObject);
     }

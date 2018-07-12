@@ -8,20 +8,15 @@ public class CameraController : MonoBehaviour {
     Transform player;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         player = GameObject.Find("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     //Called after Update, resets camera
-    void LateUpdate()
-    {
-        Vector3 playerpos = player.position;
-        playerpos.z = transform.position.z;
-        transform.position = playerpos;
+    void LateUpdate() {
+        Vector3 camera = player.position;
+        //disregard player's z coordinate
+        camera.z = transform.position.z;
+        transform.position = camera;
     }
 }

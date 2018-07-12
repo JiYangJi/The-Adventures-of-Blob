@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBlob : Character {
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
         maxSpeed = 10;
@@ -12,11 +12,9 @@ public class PlayerBlob : Character {
         numJumps = 1;
         jumpCounter = numJumps;
         transform.GetChild(0).GetComponent<Renderer>().enabled = false;
-        
     }
 
-    void Update()
-    {
+    void Update() {
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01);
         this.transform.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
 
@@ -25,17 +23,13 @@ public class PlayerBlob : Character {
 
         float move_x = Input.GetAxis("Horizontal");
         bool pressedJump = Input.GetButtonDown("Jump");
-        if (grounded)
-        {
+        if (grounded) {
             jumpCounter = numJumps;
         }
 
-        if (!pressedJump)
-        {
+        if (!pressedJump) {
             move(move_x);
-        }
-        else if (grounded || jumpCounter > 0)
-        {
+        } else if (grounded || jumpCounter > 0) {
             jump();
             jumpCounter--;
         }
@@ -44,19 +38,15 @@ public class PlayerBlob : Character {
     //don't jump as high if the jump key is let go
     //fall fast
     void jumpAdjust() {
-        if (body.velocity.y < 0)
-        {
+        if (body.velocity.y < 0) {
             body.velocity += new Vector2(0, -0.1f);
-        }
-        else if (body.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
+        } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
             body.velocity += new Vector2(0, -1f);
-        } 
+        }
     }
 
     // FixedUpdate not necessarily the same as frame update
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         jumpAdjust();
     }
 
