@@ -11,12 +11,13 @@ public class PlayerBlob : Character {
         jumpAmount = 30f;
         numJumps = 1;
         jumpCounter = numJumps;
-        transform.GetChild(0).GetComponent<Renderer>().enabled = false;
     }
 
     void Update() {
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01);
-        this.transform.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
+        if (transform.Find("Equipped").childCount > 0) {
+            transform.Find("Equipped").GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
+        }
 
         bool grounded = isGrounded();
         GetComponent<Animator>().SetBool("isJumping", !grounded);
@@ -56,7 +57,8 @@ public class PlayerBlob : Character {
     }
 
     public void setStickWeapon() {
-        transform.GetChild(0).GetComponent<Renderer>().enabled = true;
+        GameObject stick = Instantiate(Resources.Load("Weapons/Stick")) as GameObject;
+        stick.transform.SetParent(this.transform.Find("Equipped").transform, false);
     }
 
     public void setToStartPosition() {
