@@ -84,8 +84,8 @@ public class BlobController : MonoBehaviour {
 
     private bool isGrounded() {
         Bounds bounds = GetComponent<BoxCollider2D>().bounds;
-        int platformMask = 1 << LayerMask.NameToLayer("Platforms");
-        float distance = 0.1f;
+        int platformMask = LayerMask.GetMask("Platforms");
+        float distance = 0.02f;
         //check left and right
         RaycastHit2D resultLeft = Physics2D.Raycast(bounds.min, Vector2.down, distance, platformMask);
         RaycastHit2D resultRight = Physics2D.Raycast(bounds.min + new Vector3(bounds.size.x, 0, 0), 
