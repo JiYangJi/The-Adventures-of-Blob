@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBlob : Character {
+    public GameObject Stick;
+
     // Use this for initialization
     void Start() {
         body = GetComponent<Rigidbody2D>();
@@ -57,11 +59,12 @@ public class PlayerBlob : Character {
     }
 
     public void setStickWeapon() {
-        GameObject stick = Instantiate(Resources.Load("Weapons/Stick")) as GameObject;
+        GameObject stick = Instantiate(Stick);
         stick.transform.SetParent(this.transform.Find("Equipped").transform, false);
     }
 
     public void setToStartPosition() {
+        body.velocity = new Vector2(0, 0);
         transform.position = new Vector2(1, 1);
     }
 }
