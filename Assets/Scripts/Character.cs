@@ -8,21 +8,46 @@ public class Character : MonoBehaviour {
     protected float jumpAmount;
     protected int numJumps;
     protected int jumpCounter;
+    protected bool grounded;
 
     protected Rigidbody2D body;
 
-    protected bool isGrounded() {
-        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
-        int platformMask = LayerMask.GetMask("Platforms");
-        float distance = 0.02f;
-        //check left and right
-        RaycastHit2D resultLeft = Physics2D.Raycast(bounds.min, Vector2.down, distance, platformMask);
-        RaycastHit2D resultRight = Physics2D.Raycast(bounds.min + new Vector3(bounds.size.x, 0, 0),
-            Vector2.down, distance, platformMask);
-        if (resultLeft.collider == null && resultRight.collider == null) {
-            return false;
+    protected void setAnimatorParams() {
+        GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
+        if (transform.Find("Equipped").childCount > 0) {
+            transform.Find("Equipped").GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
         }
-        return true;
+        GetComponent<Animator>().SetBool("isJumping", !grounded);
+
+    }
+
+    protected bool leftCollide(int layerMask, float dist = 0.02f) {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        return Physics2D.Raycast(bounds.center, Vector2.left, dist + bounds.extents.x, layerMask).collider != null;
+    }
+
+    protected bool rightCollide(int layerMask, float dist = 0.02f) {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        return Physics2D.Raycast(bounds.center, Vector2.right, dist + bounds.extents.x, layerMask).collider != null;
+    }
+
+    protected bool leftBottomCollide(int layerMask, float dist = 0.02f) {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        return Physics2D.Raycast(bounds.min, Vector2.down, dist, layerMask).collider != null;
+    }
+
+    protected bool rightBottomCollide(int layerMask, float dist = 0.02f) {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        return Physics2D.Raycast(bounds.min + new Vector3(bounds.size.x, 0, 0),
+                                    Vector2.down, dist, layerMask).collider != null;
+    }
+
+    protected bool isGrounded() {
+        int platforms = LayerMask.GetMask("Platforms");
+        if (leftBottomCollide(platforms) || rightBottomCollide(platforms)) {
+            return true;
+        }
+        return false;
     }
 
     protected void move(float amount) {
