@@ -20,13 +20,13 @@ public class Enemy : Character {
 	void Update () {
         grounded = isGrounded();
         setAnimatorParams();
-
         int platforms = LayerMask.GetMask("Platforms");
-        if (!leftBottomCollide(platforms) || leftCollide(platforms)) {
-            moveLeft = false;
-        }
-        if (!rightBottomCollide(platforms) || rightCollide(platforms)) {
-            moveLeft = true;
+
+        bool endLeft = !leftBottomCollide(platforms) || leftCollide(platforms);
+        bool endRight = !rightBottomCollide(platforms) || rightCollide(platforms);
+
+        if (endLeft != endRight) {
+            moveLeft = endRight;
         }
 
         if (moveLeft) {
