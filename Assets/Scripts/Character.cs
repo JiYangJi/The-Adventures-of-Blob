@@ -8,6 +8,9 @@ public class Character : MonoBehaviour {
     public int attack;
     public int defense;
 
+    protected bool incapacitated;
+    protected float incapacitatedTime = 0.5f; // seconds
+    protected float incapacitatedCount = 0;
     protected float maxSpeed;
     protected float jumpAmount;
     protected int numJumps;
@@ -17,6 +20,13 @@ public class Character : MonoBehaviour {
     protected Rigidbody2D body;
 
     protected void setAnimatorParams() {
+        if (incapacitated) {
+            incapacitatedCount += Time.deltaTime;
+            if (incapacitatedCount > incapacitatedTime) {
+                incapacitated = false;
+                incapacitatedCount = 0;
+            }
+        }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
         if (transform.Find("Equipped").childCount > 0) {
             transform.Find("Equipped").GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
@@ -55,8 +65,10 @@ public class Character : MonoBehaviour {
     }
 
     protected void move(float amount) {
-        body.velocity = new Vector2(amount * maxSpeed, body.velocity.y);
-        flipLeftRight(amount);
+        if (!incapacitated) {
+            body.velocity = new Vector2(amount * maxSpeed, body.velocity.y);
+            flipLeftRight(amount);
+        }
     }
 
     protected void flipLeftRight(float amount) {
@@ -67,10 +79,12 @@ public class Character : MonoBehaviour {
     }
 
     protected void jump() {
-        body.velocity = new Vector2(body.velocity.x, jumpAmount);
+        if (!incapacitated) {
+            body.velocity = new Vector2(body.velocity.x, jumpAmount);
+        }
     }
 
-    public void attackCharacter(int attack, Vector2 force) {
+    public void attackCharacter(int attack, Vector2 direction, float amount) {
         float raw_damage = (attack * attack) / (float) (attack + defense);
         int damage = (int) raw_damage;
         if (damage == 0) {
@@ -81,6 +95,12 @@ public class Character : MonoBehaviour {
             Destroy(this.gameObject);
             return;
         }
-        body.AddForce(force * body.mass);
+        body.velocity = Vector2.zero; //zero
+        this.incapacitated = true;
+        direction = direction.normalized;
+        if (direction.normalized == Vector2.zero) {
+            direction.y = 1;
+        }
+        body.AddForce(direction.normalized * amount);
     }
 }

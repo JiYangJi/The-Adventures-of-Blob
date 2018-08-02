@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : Character {
     public GameObject Stick;
-    public bool isAttacked;
-    public float recoveryTime = 5; //seconds
-    public float recoveryClock = 0;
+    public bool recovering;
+    private float recoveryTime = 1f; //seconds
+    private float recoveryClock = 0;
 
     // Use this for initialization
     void Start() {
@@ -24,15 +24,21 @@ public class Player : Character {
     void Update() {
         grounded = isGrounded();
         setAnimatorParams();
-        if (isAttacked) {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
+        if (recovering) {
             recoveryClock += Time.deltaTime;
+            SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+            //flicker for 0.1 seconds in the beginning of every 0.2 second period
+            if (recoveryClock % 0.2 < 0.1) {
+                sprite.enabled = false;
+            } else {
+                sprite.enabled = true;
+            }
             if (recoveryClock >= recoveryTime) {
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"), false);
                 recoveryClock = 0;
-                isAttacked = false;
+                recovering = false;
+                sprite.enabled = true;
             }
-            return;
         }
 
         float move_x = Input.GetAxis("Horizontal");

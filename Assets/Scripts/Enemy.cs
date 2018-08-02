@@ -46,12 +46,11 @@ public class Enemy : Character {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.tag == "Player") {
             Player player = collision.collider.GetComponentInParent<Player>();
-            if (this.facingRight) {
-                player.attackCharacter(this.attack, new Vector2(100, 100));
-            } else {
-                player.attackCharacter(this.attack, new Vector2(-100, 100));
+            if (!player.recovering) {
+                player.attackCharacter(this.attack, collision.transform.position - this.transform.position, 50);
+                player.recovering = true;
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
             }
-            player.isAttacked = true;
         }
     }
 }

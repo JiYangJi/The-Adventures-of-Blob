@@ -23,11 +23,8 @@ public class WeaponAttack : MonoBehaviour {
         if (collision.tag == "Enemy") {
             Debug.Log("Reached enemy!");
             Character toAttack = collision.GetComponentInParent<Character>();
-            if (player.facingRight) {
-                toAttack.attackCharacter(player.attack, new Vector2(900, 300));
-            } else {
-                toAttack.attackCharacter(player.attack, new Vector2(-900, 300));
-            }
+            toAttack.attackCharacter(player.attack, toAttack.transform.position - this.transform.position, 100);
+            Debug.Log("This Position: " + transform.position.ToString());
         }
     }
 }
