@@ -10,6 +10,9 @@ public class Enemy : Character {
 	void Start () {
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
+        health = 3;
+        attack = 1;
+        defense = 0;
         maxSpeed = 10;
         jumpAmount = 20f;
         numJumps = 1;

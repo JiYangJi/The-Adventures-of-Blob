@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
     public bool facingRight = true;
+    public int health;
+    public int attack;
+    public int defense;
+
     protected float maxSpeed;
     protected float jumpAmount;
     protected int numJumps;
@@ -66,4 +70,17 @@ public class Character : MonoBehaviour {
         body.velocity = new Vector2(body.velocity.x, jumpAmount);
     }
 
+    public void attackCharacter(int attack, Vector2 force) {
+        float raw_damage = (attack * attack) / (float) (attack + defense);
+        int damage = (int) raw_damage;
+        if (damage == 0) {
+            damage = 1;
+        }
+        health -= damage;
+        if (health <= 0) {
+            Destroy(this.gameObject);
+            return;
+        }
+        body.AddForce(force);
+    }
 }

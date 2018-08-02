@@ -9,6 +9,9 @@ public class Player : Character {
     void Start() {
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
+        health = 12;
+        attack = 1;
+        defense = 1;
         maxSpeed = 10;
         jumpAmount = 30f;
         numJumps = 1;

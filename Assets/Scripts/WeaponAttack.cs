@@ -22,10 +22,11 @@ public class WeaponAttack : MonoBehaviour {
         Debug.Log("Reached collision!");
         if (collision.tag == "Enemy") {
             Debug.Log("Reached enemy!");
+            Character toAttack = collision.GetComponentInParent<Character>();
             if (player.facingRight) {
-                collision.attachedRigidbody.AddForce(new Vector2(300, 100));
+                toAttack.attackCharacter(player.attack, new Vector2(300, 100));
             } else {
-                collision.attachedRigidbody.AddForce(new Vector2(-300, 100));
+                toAttack.attackCharacter(player.attack, new Vector2(-300, 100));
             }
         }
     }
