@@ -81,6 +81,6 @@ public class Character : MonoBehaviour {
             Destroy(this.gameObject);
             return;
         }
-        body.AddForce(force);
+        body.AddForce(force * body.mass);
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : Character {
     public GameObject Stick;
+    public bool isAttacked;
+    public float recoveryTime = 5; //seconds
+    public float recoveryClock = 0;
 
     // Use this for initialization
     void Start() {
@@ -16,12 +19,21 @@ public class Player : Character {
         jumpAmount = 30f;
         numJumps = 1;
         jumpCounter = numJumps;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
     }
 
     void Update() {
         grounded = isGrounded();
         setAnimatorParams();
+        if (isAttacked) {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
+            recoveryClock += Time.deltaTime;
+            if (recoveryClock >= recoveryTime) {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"), false);
+                recoveryClock = 0;
+                isAttacked = false;
+            }
+            return;
+        }
 
         float move_x = Input.GetAxis("Horizontal");
         bool pressedJump = Input.GetButtonDown("Jump");

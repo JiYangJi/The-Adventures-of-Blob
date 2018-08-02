@@ -42,4 +42,16 @@ public class Enemy : Character {
             move(0.1f);
         }
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.tag == "Player") {
+            Player player = collision.collider.GetComponentInParent<Player>();
+            if (this.facingRight) {
+                player.attackCharacter(this.attack, new Vector2(100, 100));
+            } else {
+                player.attackCharacter(this.attack, new Vector2(-100, 100));
+            }
+            player.isAttacked = true;
+        }
+    }
 }

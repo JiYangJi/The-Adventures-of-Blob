@@ -24,9 +24,9 @@ public class WeaponAttack : MonoBehaviour {
             Debug.Log("Reached enemy!");
             Character toAttack = collision.GetComponentInParent<Character>();
             if (player.facingRight) {
-                toAttack.attackCharacter(player.attack, new Vector2(300, 100));
+                toAttack.attackCharacter(player.attack, new Vector2(900, 300));
             } else {
-                toAttack.attackCharacter(player.attack, new Vector2(-300, 100));
+                toAttack.attackCharacter(player.attack, new Vector2(-900, 300));
             }
         }
     }
