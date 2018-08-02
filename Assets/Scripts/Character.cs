@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-    protected bool facingRight = true;
+    public bool facingRight = true;
     protected float maxSpeed;
     protected float jumpAmount;
     protected int numJumps;

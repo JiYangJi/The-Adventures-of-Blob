@@ -10,7 +10,7 @@ public class Enemy : Character {
 	void Start () {
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-        maxSpeed = 20;
+        maxSpeed = 10;
         jumpAmount = 20f;
         numJumps = 1;
         jumpCounter = numJumps;
@@ -19,7 +19,11 @@ public class Enemy : Character {
 	// Update is called once per frame
 	void Update () {
         grounded = isGrounded();
+
         setAnimatorParams();
+        if (!grounded) {
+            return; //don't move if grounded
+        }
         int platforms = LayerMask.GetMask("Platforms");
 
         bool endLeft = !leftBottomCollide(platforms) || leftCollide(platforms);
