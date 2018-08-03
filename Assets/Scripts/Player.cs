@@ -34,7 +34,7 @@ public class Player : Character {
                 sprite.enabled = true;
             }
             if (recoveryClock >= recoveryTime) {
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
                 recoveryClock = 0;
                 recovering = false;
                 sprite.enabled = true;

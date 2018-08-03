@@ -17,10 +17,11 @@ public class Enemy : Character {
         jumpAmount = 20f;
         numJumps = 1;
         jumpCounter = numJumps;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Enemies"));
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         grounded = isGrounded();
 
         setAnimatorParams();
@@ -45,11 +46,11 @@ public class Enemy : Character {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.tag == "Player") {
-            Player player = collision.collider.GetComponentInParent<Player>();
+            Player player = collision.collider.GetComponent<Player>();
             if (!player.recovering) {
                 player.attackCharacter(this.attack, collision.transform.position - this.transform.position, 120);
                 player.recovering = true;
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"));
             }
         }
     }

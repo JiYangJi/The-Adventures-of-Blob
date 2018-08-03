@@ -17,7 +17,10 @@ public class JumpPowerup : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        player.increaseNumJumps();
-        Destroy(this.gameObject);
+        if (collision.tag == "Player") {
+            Player player = collision.GetComponent<Player>();
+            player.increaseNumJumps();
+            Destroy(this.gameObject);
+        }
     }
 }
