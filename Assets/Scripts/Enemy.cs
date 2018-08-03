@@ -25,7 +25,7 @@ public class Enemy : Character {
 
         setAnimatorParams();
         if (!grounded) {
-            return; //don't move if grounded
+            return; //don't move if in air
         }
         int platforms = LayerMask.GetMask("Platforms");
 
@@ -47,7 +47,7 @@ public class Enemy : Character {
         if (collision.collider.tag == "Player") {
             Player player = collision.collider.GetComponentInParent<Player>();
             if (!player.recovering) {
-                player.attackCharacter(this.attack, collision.transform.position - this.transform.position, 50);
+                player.attackCharacter(this.attack, collision.transform.position - this.transform.position, 120);
                 player.recovering = true;
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Characters"), LayerMask.NameToLayer("Characters"));
             }

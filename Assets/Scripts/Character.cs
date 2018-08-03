@@ -10,6 +10,8 @@ public class Character : MonoBehaviour {
 
     protected bool incapacitated;
     protected float incapacitatedTime = 0.5f; // seconds
+    protected float hitTime = 0.1f;
+    protected float hitCount = 0;
     protected float incapacitatedCount = 0;
     protected float maxSpeed;
     protected float jumpAmount;
@@ -20,11 +22,19 @@ public class Character : MonoBehaviour {
     protected Rigidbody2D body;
 
     protected void setAnimatorParams() {
+        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+
         if (incapacitated) {
             incapacitatedCount += Time.deltaTime;
+            hitCount += Time.deltaTime;
+            if (hitCount > hitTime) {
+                sprite.color = new Color(1, 1, 1);
+                hitCount = 0;
+            }
             if (incapacitatedCount > incapacitatedTime) {
                 incapacitated = false;
                 incapacitatedCount = 0;
+                sprite.color = new Color(1, 1, 1);
             }
         }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
@@ -96,7 +106,11 @@ public class Character : MonoBehaviour {
             return;
         }
         body.velocity = Vector2.zero; //zero
-        this.incapacitated = true;
+        incapacitated = true;
+        incapacitatedCount = 0;
+        hitCount = 0;
+        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+        sprite.color = new Color(1, 0.8f, 0.8f);
         direction = direction.normalized;
         if (direction.normalized == Vector2.zero) {
             direction.y = 1;
