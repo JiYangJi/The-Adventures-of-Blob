@@ -16,7 +16,7 @@ public class Player : Character {
         attack = 1;
         defense = 1;
         maxSpeed = 10;
-        jumpAmount = 30f;
+        jumpAmount = 35f;
         numJumps = 1;
         jumpCounter = numJumps;
     }

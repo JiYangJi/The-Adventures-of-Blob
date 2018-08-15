@@ -28,13 +28,13 @@ public class Character : MonoBehaviour {
             incapacitatedCount += Time.deltaTime;
             hitCount += Time.deltaTime;
             if (hitCount > hitTime) {
-                sprite.color = new Color(1, 1, 1);
+                sprite.color = new Color32(255, 255, 255,255);
                 hitCount = 0;
             }
             if (incapacitatedCount > incapacitatedTime) {
                 incapacitated = false;
                 incapacitatedCount = 0;
-                sprite.color = new Color(1, 1, 1);
+                sprite.color = new Color32(255, 255, 255, 255);
             }
         }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
@@ -111,7 +111,7 @@ public class Character : MonoBehaviour {
         incapacitatedCount = 0;
         hitCount = 0;
         SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
-        sprite.color = new Color(1, 0.8f, 0.8f);
+        sprite.color = new Color32(255, 200, 200, 255);
         direction = direction.normalized;
         if (direction.normalized == Vector2.zero) {
             direction.y = 1;
