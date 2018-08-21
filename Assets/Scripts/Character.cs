@@ -18,6 +18,7 @@ public class Character : MonoBehaviour {
     protected int numJumps;
     protected int jumpCounter;
     protected bool grounded;
+    protected Color32 color;
 
     protected Rigidbody2D body;
 
@@ -28,13 +29,13 @@ public class Character : MonoBehaviour {
             incapacitatedCount += Time.deltaTime;
             hitCount += Time.deltaTime;
             if (hitCount > hitTime) {
-                sprite.color = new Color32(255, 255, 255,255);
+                sprite.color = color;
                 hitCount = 0;
             }
             if (incapacitatedCount > incapacitatedTime) {
                 incapacitated = false;
                 incapacitatedCount = 0;
-                sprite.color = new Color32(255, 255, 255, 255);
+                sprite.color = color;
             }
         }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
@@ -111,7 +112,7 @@ public class Character : MonoBehaviour {
         incapacitatedCount = 0;
         hitCount = 0;
         SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
-        sprite.color = new Color32(255, 200, 200, 255);
+        sprite.color = new Color32();
         direction = direction.normalized;
         if (direction.normalized == Vector2.zero) {
             direction.y = 1;

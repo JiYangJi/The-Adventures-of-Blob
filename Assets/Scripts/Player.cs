@@ -10,12 +10,14 @@ public class Player : Character {
 
     // Use this for initialization
     void Start() {
+        color = new Color32(65, 234, 101, 255);
+        this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
         health = 12;
         attack = 1;
         defense = 1;
-        maxSpeed = 10;
+        maxSpeed = 8;
         jumpAmount = 35f;
         numJumps = 1;
         jumpCounter = numJumps;

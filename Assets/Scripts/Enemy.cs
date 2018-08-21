@@ -8,6 +8,8 @@ public class Enemy : Character {
 
 	// Use this for initialization
 	void Start () {
+        color = new Color32(100, 50, 230, 255);
+        this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
         health = 3;
