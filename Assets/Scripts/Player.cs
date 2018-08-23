@@ -19,7 +19,7 @@ public class Player : Character {
         attack = 1;
         defense = 1;
         maxSpeed = 8;
-        jumpAmount = 35f;
+        jumpAmount = 50f;
         numJumps = 1;
         jumpCounter = numJumps;
     }
@@ -62,7 +62,7 @@ public class Player : Character {
     //fall fast
     void jumpAdjust() {
         if (body.velocity.y < 0) {
-            body.velocity += new Vector2(0, -0.1f);
+            body.velocity += new Vector2(0, -2f);
         } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
             body.velocity += new Vector2(0, -1f);
         }
@@ -76,6 +76,10 @@ public class Player : Character {
     public void increaseNumJumps() {
         numJumps++;
         jumpCounter++;
+    }
+
+    public void increaseJumpHeight() {
+        jumpAmount += 5;
     }
 
     public void setStickWeapon() {
