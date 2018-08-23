@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
     public bool facingRight = true;
+    public int maxHealth;
     public int health;
     public int attack;
     public int defense;

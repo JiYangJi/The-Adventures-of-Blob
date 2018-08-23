@@ -14,7 +14,8 @@ public class Player : Character {
         this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-        health = 12;
+        maxHealth = 12;
+        health = maxHealth;
         attack = 1;
         defense = 1;
         maxSpeed = 8;
