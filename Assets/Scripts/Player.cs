@@ -61,10 +61,10 @@ public class Player : Character {
     //don't jump as high if the jump key is let go
     //fall fast
     void jumpAdjust() {
-        if (body.velocity.y < 0) {
-            body.velocity += new Vector2(0, -2f);
+        if (body.velocity.y <= 0) {
+            body.velocity -= new Vector2(0, 3f);
         } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
-            body.velocity += new Vector2(0, -1f);
+            body.velocity -= new Vector2(0, jumpAmount / 10);
         }
     }
 

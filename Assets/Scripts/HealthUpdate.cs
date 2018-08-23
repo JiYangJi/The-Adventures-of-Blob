@@ -12,16 +12,16 @@ public class HealthUpdate : MonoBehaviour {
     void Start () {
         player = GameObject.Find("Player").GetComponent<Player>();
         healthbar = GetComponent<Slider>();
-        bar = GetComponent<RectTransform>();
+        bar = healthbar.GetComponentInChildren<RectTransform>();
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.rect.Set(bar.rect.x, bar.rect.y, healthbar.maxValue*5, bar.rect.height);
+        bar.rect.Set(bar.rect.x, bar.rect.y, healthbar.maxValue * 10, bar.rect.height);
     }
 
     // Update is called once per frame
     void Update () {
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.rect.Set(bar.rect.x, bar.rect.y, healthbar.maxValue * 5, bar.rect.height);
+        bar.rect.Set(bar.rect.x, bar.rect.y, healthbar.maxValue * 10, bar.rect.height);
     }
 }
