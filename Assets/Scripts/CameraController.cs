@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour {
     }
 
     //Called after Update, resets camera
-    void LateUpdate() {
-        Vector3 camera = player.position;
+    void FixedUpdate() {
+        Vector3 camera = Vector3.Lerp(transform.position, player.transform.position, 0.07f);
         //disregard player's z coordinate
         camera.z = transform.position.z;
         transform.position = camera;
