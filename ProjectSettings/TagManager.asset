@@ -18,8 +18,8 @@ TagManager:
   - Background
   - Platforms
   - Player
-  - Enemies
-  - 
+  - EnemiesPhysics
+  - EnemiesTrigger
   - 
   - 
   - 

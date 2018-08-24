@@ -19,7 +19,7 @@ public class Enemy : Character {
         jumpAmount = 20f;
         numJumps = 1;
         jumpCounter = numJumps;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Enemies"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemiesPhysics"), LayerMask.NameToLayer("EnemiesPhysics"));
     }
 
     // Update is called once per frame
@@ -46,13 +46,13 @@ public class Enemy : Character {
         }
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.tag == "Player") {
-            Player player = collision.collider.GetComponent<Player>();
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "Player") {
+            Player player = collider.GetComponent<Player>();
             if (!player.recovering) {
-                player.attackCharacter(this.attack, collision.transform.position - this.transform.position, 120);
+                player.attackCharacter(this.attack, collider.transform.position - this.transform.position, 120);
                 player.recovering = true;
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"));
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("EnemiesTrigger"));
             }
         }
     }

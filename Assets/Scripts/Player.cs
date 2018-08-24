@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Character {
     public GameObject Stick;
     public bool recovering;
-    private float recoveryTime = 1f; //seconds
+    private float recoveryTime = 0.5f; //seconds
     private float recoveryClock = 0;
 
     // Use this for initialization
@@ -22,6 +22,7 @@ public class Player : Character {
         jumpAmount = 300f;
         numJumps = 1;
         jumpCounter = numJumps;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("EnemiesPhysics"));
     }
 
     void Update() {
@@ -37,7 +38,7 @@ public class Player : Character {
                 sprite.enabled = true;
             }
             if (recoveryClock >= recoveryTime) {
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("EnemiesTrigger"), false);
                 recoveryClock = 0;
                 recovering = false;
                 sprite.enabled = true;
