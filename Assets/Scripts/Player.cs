@@ -18,7 +18,7 @@ public class Player : Character {
         health = maxHealth;
         attack = 1;
         defense = 1;
-        maxSpeed = 8;
+        maxSpeed = 5;
         jumpAmount = 300f;
         numJumps = 1;
         jumpCounter = numJumps;
@@ -63,7 +63,7 @@ public class Player : Character {
     void jumpAdjust() {
         if (body.velocity.y <= 0) {
             body.velocity -= new Vector2(0, 1.2f);
-        } else if (body.velocity.y > 0.1 && !Input.GetButton("Jump")) {
+        } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
             body.velocity -= new Vector2(0, Mathf.Sqrt(jumpAmount) / 10);
         }
     }
