@@ -19,14 +19,13 @@ public class Enemy : Character {
         jumpAmount = 20f;
         numJumps = 1;
         jumpCounter = numJumps;
+        recoveryTime = 0.5f;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemiesPhysics"), LayerMask.NameToLayer("EnemiesPhysics"));
     }
 
     // Update is called once per frame
     void Update () {
-        grounded = isGrounded();
-
-        setAnimatorParams();
+        UpdateCharacterParams();
         if (!grounded) {
             return; //don't move if in air
         }
@@ -48,12 +47,8 @@ public class Enemy : Character {
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == "Player") {
-            Player player = collider.GetComponent<Player>();
-            if (!player.recovering) {
-                player.attackCharacter(this.attack, collider.transform.position - this.transform.position, 120);
-                player.recovering = true;
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("EnemiesTrigger"));
-            }
+            Player player = collider.GetComponentInParent<Player>();
+            player.attackCharacter(this.attack, collider.transform.position - this.transform.position, 120);
         }
     }
 }

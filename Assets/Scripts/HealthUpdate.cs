@@ -15,13 +15,13 @@ public class HealthUpdate : MonoBehaviour {
         bar = healthbar.GetComponent<RectTransform>();
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.sizeDelta = new Vector2(healthbar.maxValue * 3, bar.rect.height);
+        bar.sizeDelta = new Vector2(healthbar.maxValue * 5, bar.rect.height);
     }
 
     // Update is called once per frame
     void Update () {
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.sizeDelta = new Vector2(healthbar.maxValue * 3, bar.rect.height);
+        bar.sizeDelta = new Vector2(healthbar.maxValue * 5, bar.rect.height);
     }
 }

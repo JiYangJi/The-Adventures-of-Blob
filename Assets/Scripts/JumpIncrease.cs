@@ -14,8 +14,8 @@ public class JumpIncrease : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Player") {
-            Player player = collision.GetComponent<Player>();
+        if (collision.tag == "PlayerPhysics") {
+            Player player = collision.GetComponentInParent<Player>();
             player.increaseJumpHeight();
             Destroy(this.gameObject);
         }

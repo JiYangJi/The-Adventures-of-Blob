@@ -9,11 +9,12 @@ public class Character : MonoBehaviour {
     public int attack;
     public int defense;
 
-    protected bool incapacitated;
+    protected bool incapacitated = false;
     protected float incapacitatedTime = 0.5f; // seconds
-    protected float hitTime = 0.1f;
-    protected float hitCount = 0;
-    protected float incapacitatedCount = 0;
+    protected float incapacitatedClock = 0;
+    protected bool recovering = false;
+    protected float recoveryTime; //seconds
+    protected float recoveryClock = 0;
     protected float maxSpeed;
     protected float jumpAmount;
     protected int numJumps;
@@ -23,20 +24,30 @@ public class Character : MonoBehaviour {
 
     protected Rigidbody2D body;
 
-    protected void setAnimatorParams() {
+    protected void UpdateCharacterParams() {
+        grounded = isGrounded();
         SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
 
         if (incapacitated) {
-            incapacitatedCount += Time.deltaTime;
-            hitCount += Time.deltaTime;
-            if (hitCount > hitTime) {
-                sprite.color = color;
-                hitCount = 0;
-            }
-            if (incapacitatedCount > incapacitatedTime) {
+            incapacitatedClock += Time.deltaTime;
+            if (incapacitatedClock > incapacitatedTime) {
                 incapacitated = false;
-                incapacitatedCount = 0;
-                sprite.color = color;
+                incapacitatedClock = 0;
+            }
+        }
+        if (recovering) {
+            recoveryClock += Time.deltaTime;
+            //flicker for 0.1 seconds in the beginning of every 0.2 second period
+            if (recoveryClock % 0.2 < 0.1) {
+                sprite.enabled = false;
+            } else {
+                sprite.enabled = true;
+            }
+            if (recoveryClock >= recoveryTime) {
+                transform.Find("AttackableTrigger").GetComponent<BoxCollider2D>().enabled = true;
+                recoveryClock = 0;
+                recovering = false;
+                sprite.enabled = true;
             }
         }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
@@ -109,15 +120,18 @@ public class Character : MonoBehaviour {
             return;
         }
         body.velocity = Vector2.zero; //zero
-        incapacitated = true;
-        incapacitatedCount = 0;
-        hitCount = 0;
-        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
-        sprite.color = new Color32();
         direction = direction.normalized;
         if (direction.normalized == Vector2.zero) {
             direction.y = 1;
         }
         body.AddForce(direction.normalized * amount);
+
+        incapacitated = true;
+        SetRecovering();
+    }
+
+    public void SetRecovering() {
+        recovering = true;
+        transform.Find("AttackableTrigger").GetComponent<BoxCollider2D>().enabled = false;
     }
 }

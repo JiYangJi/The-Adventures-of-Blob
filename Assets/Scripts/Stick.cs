@@ -17,7 +17,9 @@ public class Stick : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        player.setStickWeapon();
-        Destroy(this.gameObject);
+        if (collision.tag == "PlayerPhysics") {
+            player.setStickWeapon();
+            Destroy(this.gameObject);
+        }
     }
 }
