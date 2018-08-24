@@ -93,7 +93,7 @@ public class Character : MonoBehaviour {
 
     protected void jump() {
         if (!incapacitated) {
-            body.velocity = new Vector2(body.velocity.x, jumpAmount);
+            body.velocity = new Vector2(body.velocity.x, Mathf.Sqrt(jumpAmount));
         }
     }
 
