@@ -64,7 +64,7 @@ public class Player : Character {
         if (body.velocity.y <= 0) {
             body.velocity -= new Vector2(0, 1.2f);
         } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
-            body.velocity -= new Vector2(0, Mathf.Sqrt(jumpAmount) / 10);
+            body.velocity -= new Vector2(0, 1.2f);
         }
     }
 
