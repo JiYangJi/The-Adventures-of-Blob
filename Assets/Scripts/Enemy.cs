@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Character {
     public GameObject LifeToken;
+    private static System.Random rng = new System.Random();
 
     protected bool moveLeft = true;
 
@@ -54,9 +55,8 @@ public class Enemy : Character {
     }
 
     protected override void DestroyCharacter() {
-        System.Random rng = new System.Random();
-        int numDrops = rng.Next(1, 3);
-        for (int i = 0; i < 15; ++i) {
+        int numDrops = rng.Next(1, 4); // 1 to 3
+        for (int i = 0; i < numDrops; ++i) {
             GameObject token = Instantiate(LifeToken);
             token.transform.position = this.transform.position;
             float power = ((float)rng.NextDouble()) * 5 + 5;
