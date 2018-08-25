@@ -11,11 +11,11 @@ public class Player : Character {
         this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-        maxHealth = 12;
+        maxHealth = 10;
         health = maxHealth;
         attack = 1;
         defense = 1;
-        maxSpeed = 5;
+        maxSpeed = 3;
         jumpAmount = 300f;
         numJumps = 1;
         jumpCounter = numJumps;
