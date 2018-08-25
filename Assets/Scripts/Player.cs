@@ -20,7 +20,7 @@ public class Player : Character {
         numJumps = 1;
         jumpCounter = numJumps;
         recoveryTime = 1f; 
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerPhysics"), LayerMask.NameToLayer("EnemiesPhysics"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PhysicsObject"), LayerMask.NameToLayer("PhysicsObject"));
     }
 
     void Update() {
@@ -67,6 +67,13 @@ public class Player : Character {
     public void increaseMaxHealth() {
         maxHealth += 5;
         health = maxHealth;
+    }
+
+    public void replenishHealth(int amount) {
+        health += amount;
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
     }
 
     public void setStickWeapon() {

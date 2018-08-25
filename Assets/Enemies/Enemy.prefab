@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61138029355210962}
   - component: {fileID: 95178632657801968}
   - component: {fileID: 114331372966122376}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,7 @@ MonoBehaviour:
   health: 0
   attack: 0
   defense: 0
+  LifeToken: {fileID: 1359013771710118, guid: 267ee188dff36a34582e446600f2e9d6, type: 2}
 --- !u!212 &212945478163213228
 SpriteRenderer:
   m_ObjectHideFlags: 1

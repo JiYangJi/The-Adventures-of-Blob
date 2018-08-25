@@ -116,7 +116,7 @@ public class Character : MonoBehaviour {
         }
         health -= damage;
         if (health <= 0) {
-            Destroy(this.gameObject);
+            DestroyCharacter();
             return;
         }
         body.velocity = Vector2.zero; //zero
@@ -133,5 +133,9 @@ public class Character : MonoBehaviour {
     public void SetRecovering() {
         recovering = true;
         transform.Find("AttackableTrigger").GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    protected virtual void DestroyCharacter() {
+        Destroy(this.gameObject);
     }
 }
