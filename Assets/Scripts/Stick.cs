@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Stick : MonoBehaviour {
 
-    public Player player;
-
     // Use this for initialization
     void Start() {
-        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -16,8 +13,9 @@ public class Stick : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "PlayerPhysics") {
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "PlayerPhysics") {
+            Player player = collider.GetComponentInParent<Player>();
             player.setStickWeapon();
             Destroy(this.gameObject);
         }

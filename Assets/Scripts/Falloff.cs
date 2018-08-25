@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Falloff : MonoBehaviour {
 
-    public Player player;
-
     // Use this for initialization
     void Start() {
-        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -16,7 +13,10 @@ public class Falloff : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        player.setToStartPosition();
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "PlayerPhysics") {
+            Player player = collider.GetComponentInParent<Player>();
+            player.setToStartPosition();
+        }
     }
 }

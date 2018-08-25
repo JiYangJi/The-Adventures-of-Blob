@@ -13,9 +13,9 @@ public class DoubleJump : MonoBehaviour {
     void Update() {
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "PlayerPhysics") {
-            Player player = collision.GetComponentInParent<Player>();
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.tag == "PlayerPhysics") {
+            Player player = collider.GetComponentInParent<Player>();
             player.increaseNumJumps();
             Destroy(this.gameObject);
         }

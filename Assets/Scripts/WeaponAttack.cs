@@ -18,11 +18,11 @@ public class WeaponAttack : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("Reached collision!");
-        if (collision.tag == "Enemy") {
+    private void OnTriggerEnter2D(Collider2D collider) {
+        Debug.Log("Reached collider!");
+        if (collider.tag == "Enemy") {
             Debug.Log("Reached enemy!");
-            Character toAttack = collision.GetComponentInParent<Character>();
+            Character toAttack = collider.GetComponentInParent<Character>();
             toAttack.attackCharacter(player.attack, toAttack.transform.position - this.transform.position, 120);
             Debug.Log("This Position: " + transform.position.ToString());
         }
