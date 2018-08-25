@@ -56,22 +56,15 @@ public class Enemy : Character {
     protected override void DestroyCharacter() {
         System.Random rng = new System.Random();
         int numDrops = rng.Next(1, 3);
-        for (int i = 0; i < numDrops; ++i) {
+        for (int i = 0; i < 15; ++i) {
             GameObject token = Instantiate(LifeToken);
             token.transform.position = this.transform.position;
             float power = ((float)rng.NextDouble()) * 5 + 5;
             Debug.Log("Created life token with power " + power.ToString());
-            int left_force = rng.Next(-9, -4); // -9 to -5 
-            int right_force = rng.Next(5, 10); // 5 to 9
-            int choose_left = rng.Next(0, 2); // 0 or 1
-            int x_dir = 0;
-            if (choose_left == 1) {
-                x_dir = left_force;
-            } else {
-                x_dir = right_force;
-            }
+            int x_dir = rng.Next(-9, 10); // -9 to 9
             int y_dir = rng.Next(5, 10);
             token.GetComponent<Rigidbody2D>().AddForce(power * new Vector2(x_dir, y_dir).normalized);
+            token.GetComponent<Rigidbody2D>().AddTorque(((float)rng.NextDouble()) * 0.1f - 0.05f);
         }
         base.DestroyCharacter();
     }
