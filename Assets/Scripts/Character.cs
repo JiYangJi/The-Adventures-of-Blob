@@ -51,12 +51,7 @@ public class Character : MonoBehaviour {
             }
         }
         GetComponent<Animator>().SetBool("isMoving", Mathf.Abs(body.velocity.x) > 0.01);
-        Transform equipped = transform.Find("Equipped");
-        if (equipped != null && equipped.childCount > 0) {
-            equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", Input.GetButtonDown("Attack"));
-        }
         GetComponent<Animator>().SetBool("isJumping", !grounded);
-
     }
 
     protected bool leftCollide(int layerMask, float dist = 0.02f) {

@@ -55,7 +55,7 @@ public class Enemy : Character {
     }
 
     protected override void DestroyCharacter() {
-        int numDrops = rng.Next(1, 4); // 1 to 3
+        int numDrops = rng.Next(0, 4); // 1 to 3
         for (int i = 0; i < numDrops; ++i) {
             GameObject token = Instantiate(LifeToken);
             token.transform.position = this.transform.position;

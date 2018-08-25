@@ -5,6 +5,13 @@ using UnityEngine;
 public class Player : Character {
     public GameObject Stick;
 
+    public float maxStamina;
+    public float stamina;
+    public float staminaTimer = 0;
+    public bool exhausted = false;
+    public float exhaustedTimer = 0;
+    private float exhaustedTime = 2; //seconds
+
     // Use this for initialization
     void Start() {
         color = new Color32(65, 234, 101, 255);
@@ -13,6 +20,8 @@ public class Player : Character {
         body.freezeRotation = true;
         maxHealth = 10;
         health = maxHealth;
+        maxStamina = 50;
+        stamina = maxStamina;
         attack = 1;
         defense = 1;
         maxSpeed = 3;
@@ -25,9 +34,45 @@ public class Player : Character {
 
     void Update() {
         UpdateCharacterParams();
-
         float move_x = Input.GetAxis("Horizontal");
         bool pressedJump = Input.GetButtonDown("Jump");
+
+        Transform equipped = transform.Find("Equipped");
+        if (equipped != null && equipped.childCount > 0) {
+            if (Input.GetButtonDown("Attack")) {
+                if (stamina != 0 && Input.GetButtonDown("Attack")) {
+                    bool isAttacking = equipped.GetChild(0).GetComponent<WeaponAttack>().isAttacking;
+                    equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", true);
+                    if (!isAttacking) {
+                        stamina -= 10;
+                        if (stamina <= 0) {
+                            stamina = 0;
+                            exhausted = true;
+                        }
+                    }
+                } 
+            } else {
+                equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", false);
+            }
+        }
+        if (exhausted) {
+            exhaustedTimer += Time.deltaTime;
+            if (exhaustedTimer >= exhaustedTime) {
+                Debug.Log("Exhausted timer is now at " + exhaustedTimer.ToString());
+                exhausted = false;
+                exhaustedTimer = 0;
+            }
+        } else {
+            staminaTimer += Time.deltaTime;
+            if (staminaTimer >= 0.1f) {
+                stamina += 1;
+                if (stamina > maxStamina) {
+                    stamina = maxStamina;
+                }
+                staminaTimer = 0;
+            }
+        }
+
         if (grounded) {
             jumpCounter = numJumps;
         }

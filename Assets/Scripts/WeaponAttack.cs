@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponAttack : MonoBehaviour {
 
     public Player player;
+    public bool isAttacking = false;
 
     // Use this for initialization
     void Start () {
