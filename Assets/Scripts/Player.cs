@@ -64,6 +64,11 @@ public class Player : Character {
         jumpAmount += 60f;
     }
 
+    public void increaseMaxHealth() {
+        maxHealth += 5;
+        health = maxHealth;
+    }
+
     public void setStickWeapon() {
         GameObject stick = Instantiate(Stick);
         stick.transform.SetParent(this.transform.Find("Equipped").transform, false);
