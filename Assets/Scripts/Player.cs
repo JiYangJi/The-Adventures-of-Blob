@@ -12,7 +12,7 @@ public class Player : Character {
 
     public bool exhausted = false;
     public float exhaustedTimer = 0;
-    private float exhaustedTime = 2; //seconds
+    private float exhaustedTime = 1; //seconds
 
     public int experience = 0;
     public int level = 1;
@@ -47,7 +47,7 @@ public class Player : Character {
         Transform equipped = transform.Find("Equipped");
         if (equipped != null && equipped.childCount > 0) {
             if (Input.GetButtonDown("Attack")) {
-                if (stamina != 0 && Input.GetButtonDown("Attack")) {
+                if (stamina >= 20 && Input.GetButtonDown("Attack")) {
                     bool isAttacking = equipped.GetChild(0).GetComponent<WeaponAttack>().isAttacking;
                     equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", true);
                     if (!isAttacking) {
@@ -142,9 +142,9 @@ public class Player : Character {
         }
     }
 
-    //formula for amount of exp to next level, level^2
+    //formula for amount of exp to next level, level^2 / 2 + 2
     public int expFormula() {
-        return level * level + 1;
+        return level * level / 2 + 5;
     }
 
     public void setStickWeapon() {
