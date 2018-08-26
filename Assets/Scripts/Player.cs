@@ -49,7 +49,7 @@ public class Player : Character {
                     bool isAttacking = equipped.GetChild(0).GetComponent<WeaponAttack>().isAttacking;
                     equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", true);
                     if (!isAttacking) {
-                        stamina -= 10;
+                        stamina -= 20;
                         if (stamina <= 0) {
                             stamina = 0;
                             exhausted = true;
@@ -139,9 +139,9 @@ public class Player : Character {
         }
     }
 
-    //formula for amount of exp to next level, level^2+ 5
+    //formula for amount of exp to next level, level^2
     public int expToNextLevel() {
-        return level * level + 5;
+        return level * level;
     }
 
     public void setStickWeapon() {
