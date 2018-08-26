@@ -8,9 +8,14 @@ public class Player : Character {
     public float maxStamina;
     public float stamina;
     public float staminaTimer = 0;
+    private float staminaTime = 0.2f;
+
     public bool exhausted = false;
     public float exhaustedTimer = 0;
     private float exhaustedTime = 2; //seconds
+
+    public int experience = 0;
+    public int level = 1;
 
     // Use this for initialization
     void Start() {
@@ -20,7 +25,7 @@ public class Player : Character {
         body.freezeRotation = true;
         maxHealth = 10;
         health = maxHealth;
-        maxStamina = 50;
+        maxStamina = 100;
         stamina = maxStamina;
         attack = 1;
         defense = 1;
@@ -64,7 +69,7 @@ public class Player : Character {
             }
         } else {
             staminaTimer += Time.deltaTime;
-            if (staminaTimer >= 0.1f) {
+            if (staminaTimer >= staminaTime) {
                 stamina += 1;
                 if (stamina > maxStamina) {
                     stamina = maxStamina;
@@ -119,6 +124,24 @@ public class Player : Character {
         if (health > maxHealth) {
             health = maxHealth;
         }
+    }
+
+    public void gainExperience(int amount) {
+        experience += amount;
+        if (experience >= expToNextLevel()) { 
+            //Level up:
+            int leftover = experience - expToNextLevel();
+            experience = leftover;
+            ++level;
+            ++attack;
+            ++defense;
+            maxStamina += 5;
+        }
+    }
+
+    //formula for amount of exp to next level, level^2+ 5
+    public int expToNextLevel() {
+        return level * level + 5;
     }
 
     public void setStickWeapon() {

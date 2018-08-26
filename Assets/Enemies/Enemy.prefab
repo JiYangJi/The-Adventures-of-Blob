@@ -179,6 +179,8 @@ MonoBehaviour:
   attack: 0
   defense: 0
   LifeToken: {fileID: 1359013771710118, guid: 267ee188dff36a34582e446600f2e9d6, type: 2}
+  ExperienceToken: {fileID: 1859312520529144, guid: f53fac42b29a99448a8be09510663677,
+    type: 2}
 --- !u!212 &212945478163213228
 SpriteRenderer:
   m_ObjectHideFlags: 1

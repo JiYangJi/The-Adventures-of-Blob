@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Character {
     public GameObject LifeToken;
+    public GameObject ExperienceToken;
     private static System.Random rng = new System.Random();
 
     protected bool moveLeft = true;
@@ -54,18 +55,22 @@ public class Enemy : Character {
         }
     }
 
-    protected override void DestroyCharacter() {
-        int numDrops = rng.Next(0, 4); // 1 to 3
-        for (int i = 0; i < numDrops; ++i) {
-            GameObject token = Instantiate(LifeToken);
+    protected void GenerateDrop(int num, GameObject dropType) {
+        for (int i = 0; i < num; ++i) {
+            GameObject token = Instantiate(dropType);
             token.transform.position = this.transform.position;
             float power = ((float)rng.NextDouble()) * 5 + 5;
-            Debug.Log("Created life token with power " + power.ToString());
+            Debug.Log("Created  drop with power " + power.ToString());
             int x_dir = rng.Next(-9, 10); // -9 to 9
             int y_dir = rng.Next(5, 10);
             token.GetComponent<Rigidbody2D>().AddForce(power * new Vector2(x_dir, y_dir).normalized);
             token.GetComponent<Rigidbody2D>().AddTorque(((float)rng.NextDouble()) * 0.1f - 0.05f);
         }
+    }
+
+    protected override void DestroyCharacter() {
+        GenerateDrop(rng.Next(0, 3), LifeToken);
+        GenerateDrop(rng.Next(1, 5), ExperienceToken);
         base.DestroyCharacter();
     }
 }
