@@ -16,6 +16,7 @@ public class Player : Character {
 
     public int experience = 0;
     public int level = 1;
+    public int expToNextLevel;
 
     // Use this for initialization
     void Start() {
@@ -33,7 +34,8 @@ public class Player : Character {
         jumpAmount = 300f;
         numJumps = 1;
         jumpCounter = numJumps;
-        recoveryTime = 1f; 
+        recoveryTime = 1f;
+        expToNextLevel = expFormula();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PhysicsObject"), LayerMask.NameToLayer("PhysicsObject"));
     }
 
@@ -128,20 +130,21 @@ public class Player : Character {
 
     public void gainExperience(int amount) {
         experience += amount;
-        if (experience >= expToNextLevel()) { 
+        if (experience >= expToNextLevel) { 
             //Level up:
-            int leftover = experience - expToNextLevel();
+            int leftover = experience - expToNextLevel;
             experience = leftover;
             ++level;
             ++attack;
             ++defense;
             maxStamina += 5;
+            expToNextLevel = expFormula();
         }
     }
 
     //formula for amount of exp to next level, level^2
-    public int expToNextLevel() {
-        return level * level;
+    public int expFormula() {
+        return level * level + 1;
     }
 
     public void setStickWeapon() {

@@ -13,13 +13,13 @@ public class ExperienceUpdate : MonoBehaviour {
         player = GameObject.Find("Player").GetComponent<Player>();
         experiencebar = GetComponent<Slider>();
         bar = experiencebar.GetComponent<RectTransform>();
-        experiencebar.maxValue = player.expToNextLevel();
+        experiencebar.maxValue = player.expToNextLevel;
         experiencebar.value = player.experience;
     }
 
     // Update is called once per frame
     void Update() {
-        experiencebar.maxValue = player.expToNextLevel();
+        experiencebar.maxValue = player.expToNextLevel;
         experiencebar.value = player.experience;
     }
 }

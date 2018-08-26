@@ -18,5 +18,7 @@ public class CameraController : MonoBehaviour {
         //disregard player's z coordinate
         camera.z = transform.position.z;
         transform.position = camera;
+        float newSize = 5 + Mathf.Sqrt(Vector2.Distance(transform.position, player.transform.position));
+        GetComponent<Camera>().orthographicSize = Mathf.Lerp(GetComponent<Camera>().orthographicSize, newSize, 0.01f);
     }
 }
