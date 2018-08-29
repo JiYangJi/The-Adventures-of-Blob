@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeIncrease : MonoBehaviour {
+public class LifeIncrease : Powerup {
 
 	// Use this for initialization
 	void Start () {
@@ -14,11 +14,7 @@ public class LifeIncrease : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.tag == "PlayerPhysics") {
-            Player player = collider.GetComponentInParent<Player>();
-            player.increaseMaxHealth();
-            Destroy(this.gameObject);
-        }
+    protected override void ActivatePowerup(Player player) {
+        player.increaseMaxHealth();
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleJump : MonoBehaviour {
+public class DoubleJump : Powerup {
 
 
     // Use this for initialization
@@ -13,11 +13,7 @@ public class DoubleJump : MonoBehaviour {
     void Update() {
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.tag == "PlayerPhysics") {
-            Player player = collider.GetComponentInParent<Player>();
-            player.increaseNumJumps();
-            Destroy(this.gameObject);
-        }
+    protected override void ActivatePowerup(Player player) {
+        player.increaseNumJumps();
     }
 }

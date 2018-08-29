@@ -17,8 +17,8 @@ public class ExperienceUpdate : MonoBehaviour {
         experiencebar.value = player.experience;
     }
 
-    // Update is called once per frame
-    void Update() {
+    // Late update so it is after gameplay
+    void LateUpdate() {
         experiencebar.maxValue = player.expToNextLevel;
         experiencebar.value = player.experience;
     }

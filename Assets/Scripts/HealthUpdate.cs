@@ -18,8 +18,8 @@ public class HealthUpdate : MonoBehaviour {
         bar.sizeDelta = new Vector2(healthbar.maxValue * 10, bar.rect.height);
     }
 
-    // Update is called once per frame
-    void Update () {
+    // Late update so it is after gameplay
+    void LateUpdate () {
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
         bar.sizeDelta = new Vector2(healthbar.maxValue * 10, bar.rect.height);

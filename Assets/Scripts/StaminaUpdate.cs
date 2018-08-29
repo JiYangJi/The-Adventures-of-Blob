@@ -18,8 +18,8 @@ public class StaminaUpdate : MonoBehaviour {
         bar.sizeDelta = new Vector2(staminabar.maxValue, bar.rect.height);
     }
 
-    // Update is called once per frame
-    void Update() {
+    // Late update so it is after gameplay
+    void LateUpdate() {
         staminabar.maxValue = player.maxStamina;
         staminabar.value = player.stamina;
         bar.sizeDelta = new Vector2(staminabar.maxValue, bar.rect.height);
