@@ -47,21 +47,48 @@ public class Player : Character {
         Transform equipped = transform.Find("Equipped");
         if (equipped != null && equipped.childCount > 0) {
             if (Input.GetButtonDown("Attack")) {
-                if (stamina >= 20 && Input.GetButtonDown("Attack")) {
+                if (stamina >= 15 && Input.GetButtonDown("Attack")) {
                     bool isAttacking = equipped.GetChild(0).GetComponent<WeaponAttack>().isAttacking;
                     equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", true);
                     if (!isAttacking) {
-                        stamina -= 20;
+                        stamina -= 15;
                         if (stamina <= 0) {
                             stamina = 0;
                             exhausted = true;
                         }
                     }
-                } 
+                }
             } else {
                 equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", false);
             }
         }
+
+        if (grounded) {
+            jumpCounter = numJumps;
+        }
+
+        if (!pressedJump) {
+            move(move_x);
+        } else if (grounded || jumpCounter > 0) {
+            jump();
+            jumpCounter--;
+        }
+
+    }
+
+    //don't jump as high if the jump key is let go
+    //fall fast
+    void jumpAdjust() {
+        if (body.velocity.y <= 0) {
+            body.velocity -= new Vector2(0, 1.2f);
+        } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
+            body.velocity -= new Vector2(0, 1.2f);
+        }
+    }
+
+    // FixedUpdate not necessarily the same as frame update
+    // jump adjust and stamina timer must happen here
+    void FixedUpdate() {
         if (exhausted) {
             exhaustedTimer += Time.deltaTime;
             if (exhaustedTimer >= exhaustedTime) {
@@ -79,31 +106,6 @@ public class Player : Character {
                 staminaTimer = 0;
             }
         }
-
-        if (grounded) {
-            jumpCounter = numJumps;
-        }
-
-        if (!pressedJump) {
-            move(move_x);
-        } else if (grounded || jumpCounter > 0) {
-            jump();
-            jumpCounter--;
-        }
-
-    }
-    //don't jump as high if the jump key is let go
-    //fall fast
-    void jumpAdjust() {
-        if (body.velocity.y <= 0) {
-            body.velocity -= new Vector2(0, 1.2f);
-        } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
-            body.velocity -= new Vector2(0, 1.2f);
-        }
-    }
-
-    // FixedUpdate not necessarily the same as frame update
-    void FixedUpdate() {
         jumpAdjust();
     }
 
@@ -155,5 +157,10 @@ public class Player : Character {
     public void setToStartPosition() {
         body.velocity = new Vector2(0, 0);
         transform.position = new Vector2(1, 1);
+    }
+
+    protected override void DestroyCharacter() {
+        health = maxHealth;
+        setToStartPosition();
     }
 }
