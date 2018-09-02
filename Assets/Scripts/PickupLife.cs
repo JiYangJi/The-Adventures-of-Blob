@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupLife : MonoBehaviour {
+public class PickupLife : Drop {
 
 	// Use this for initialization
 	void Start () {
-		
+        Init();   
 	}
 	
 	// Update is called once per frame
@@ -14,11 +14,7 @@ public class PickupLife : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.tag == "PlayerPhysics") {
-            Player player = collider.GetComponentInParent<Player>();
-            player.replenishHealth(1);
-            Destroy(this.gameObject);
-        }
+    protected override void ActivatePowerup(Player player) {
+        player.replenishHealth(1);
     }
 }
