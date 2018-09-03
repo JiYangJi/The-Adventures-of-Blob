@@ -30,8 +30,8 @@ public class Player : Character {
         stamina = maxStamina;
         attack = 1;
         defense = 1;
-        maxSpeed = 3;
-        jumpAmount = 300f;
+        maxSpeed = 1;
+        jumpAmount = 100f;
         numJumps = 1;
         jumpCounter = numJumps;
         recoveryTime = 1f;
@@ -115,12 +115,16 @@ public class Player : Character {
     }
 
     public void increaseJumpHeight() {
-        jumpAmount += 60f;
+        jumpAmount += 50f;
     }
 
     public void increaseMaxHealth() {
         maxHealth += 5;
         health = maxHealth;
+    }
+
+    public void increaseSpeed() {
+        maxSpeed += 0.5f;
     }
 
     public void replenishHealth(int amount) {
