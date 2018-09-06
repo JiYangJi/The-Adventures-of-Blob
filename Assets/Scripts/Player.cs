@@ -18,7 +18,6 @@ public class Player : Character {
     public int level = 1;
     public int expToNextLevel;
 
-    // Use this for initialization
     void Start() {
         color = new Color32(65, 234, 101, 255);
         this.GetComponent<SpriteRenderer>().color = color;

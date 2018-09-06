@@ -4,10 +4,6 @@ using UnityEngine;
 
 public abstract class Powerup : MonoBehaviour {
 
-    void Start() {}
-
-    void Update() {}
-
     protected abstract void ActivatePowerup(Player player);
 
     private void OnTriggerEnter2D(Collider2D collider) {

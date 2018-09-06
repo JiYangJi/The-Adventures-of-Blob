@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class JumpIncrease : Powerup {
 
+    void Start() {}
 
-    // Use this for initialization
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
-    }
+    void Update() {}
 
     protected override void  ActivatePowerup(Player player) {
         player.increaseJumpHeight();
