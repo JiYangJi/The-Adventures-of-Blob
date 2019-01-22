@@ -30,6 +30,7 @@ public class Player : Character {
         attack = 1;
         defense = 1;
         maxSpeed = 1;
+        dashTime = 0.1f;
         jumpAmount = 100f;
         numJumps = 1;
         jumpCounter = numJumps;
@@ -72,7 +73,13 @@ public class Player : Character {
             jump();
             jumpCounter--;
         }
-
+        if (stamina >= 10 && Input.GetButtonDown("Dash")) {
+            isDashing = true;
+            dash();
+            stamina -= 10;
+        } else if (isDashing) {
+            dash();
+        }
     }
 
     //don't jump as high if the jump key is let go

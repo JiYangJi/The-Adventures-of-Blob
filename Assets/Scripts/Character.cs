@@ -16,6 +16,9 @@ public class Character : MonoBehaviour {
     protected float recoveryTime; //seconds
     protected float recoveryClock = 0;
     protected float maxSpeed;
+    protected float dashTime;
+    protected float dashClock = 0f;
+    protected bool isDashing = false;
     protected float jumpAmount;
     protected int numJumps;
     protected int jumpCounter;
@@ -88,6 +91,22 @@ public class Character : MonoBehaviour {
             body.velocity = new Vector2(amount * maxSpeed, body.velocity.y);
             flipLeftRight(amount);
         }
+    }
+
+    protected void dash() {
+        if (dashClock <= dashTime) {
+            if (facingRight) {
+                body.velocity += new Vector2(10*Mathf.Sqrt(maxSpeed), 0);
+                //body.AddForce(new Vector2(500, 0)); alternative method...
+            } else {
+                body.velocity += new Vector2(-10* Mathf.Sqrt(maxSpeed), 0);
+            }
+        } else {
+            dashClock = 0;
+            isDashing = false;
+        }
+        dashClock += Time.deltaTime;
+
     }
 
     protected void flipLeftRight(float amount) {
