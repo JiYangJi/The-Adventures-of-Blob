@@ -15,13 +15,13 @@ public class HealthUpdate : MonoBehaviour {
         bar = healthbar.GetComponent<RectTransform>();
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.sizeDelta = new Vector2(healthbar.maxValue * 10, bar.rect.height);
+        bar.sizeDelta = new Vector2(healthbar.maxValue, bar.rect.height);
     }
 
     // Late update so it is after gameplay
     void LateUpdate () {
         healthbar.maxValue = player.maxHealth;
         healthbar.value = player.health;
-        bar.sizeDelta = new Vector2(healthbar.maxValue * 10, bar.rect.height);
+        bar.sizeDelta = new Vector2(healthbar.maxValue, bar.rect.height);
     }
 }

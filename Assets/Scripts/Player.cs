@@ -23,17 +23,19 @@ public class Player : Character {
         this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-        maxHealth = 10;
+        maxHealth = 100;
         health = maxHealth;
         maxStamina = 100;
         stamina = maxStamina;
-        attack = 1;
-        defense = 1;
+        attack = 5;
+        defense = 5;
         maxSpeed = 1;
-        dashTime = 0.1f;
+        dashTime = 0.15f;
         jumpAmount = 100f;
         numJumps = 1;
         jumpCounter = numJumps;
+        numDashes = 3;
+        dashCounter = numDashes;
         recoveryTime = 1f;
         expToNextLevel = expFormula();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PhysicsObject"), LayerMask.NameToLayer("PhysicsObject"));
@@ -65,6 +67,8 @@ public class Player : Character {
 
         if (grounded) {
             jumpCounter = numJumps;
+            dashCounter = numDashes;
+            isDashing = false;
         }
 
         if (!pressedJump) {
@@ -73,10 +77,12 @@ public class Player : Character {
             jump();
             jumpCounter--;
         }
-        if (stamina >= 10 && Input.GetButtonDown("Dash")) {
+        //allow dashes only once, only in air
+        if (stamina >= 10 && !grounded && dashCounter > 0 && Input.GetButtonDown("Dash")) {
             isDashing = true;
             dash();
             stamina -= 10;
+            dashCounter--;
         } else if (isDashing) {
             dash();
         }

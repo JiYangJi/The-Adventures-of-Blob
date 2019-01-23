@@ -15,10 +15,10 @@ public class Enemy : Character {
         this.GetComponent<SpriteRenderer>().color = color;
         body = GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-        maxHealth = 3;
+        maxHealth = 30;
         health = maxHealth;
-        attack = 1;
-        defense = 0;
+        attack = 5;
+        defense = 1;
         maxSpeed = 10;
         jumpAmount = 20f;
         numJumps = 1;

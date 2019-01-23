@@ -19,6 +19,8 @@ public class Character : MonoBehaviour {
     protected float dashTime;
     protected float dashClock = 0f;
     protected bool isDashing = false;
+    protected int dashCounter;
+    protected int numDashes;
     protected float jumpAmount;
     protected int numJumps;
     protected int jumpCounter;
