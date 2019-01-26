@@ -49,7 +49,8 @@ public class Enemy : Character {
 	}
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.tag == "Player") {
+        //can't attack while incapacitated
+        if (!incapacitated && collider.tag == "Player") {
             Player player = collider.GetComponentInParent<Player>();
             player.attackCharacter(this.attack, collider.transform.position - this.transform.position, 120);
         }

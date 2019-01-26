@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : Character {
     public GameObject Stick;
@@ -17,6 +15,10 @@ public class Player : Character {
     public int experience = 0;
     public int level = 1;
     public int expToNextLevel;
+
+    protected int attackStaminaUse = 15;
+    protected int dashStaminaUse = 10;
+    protected float staminaLeniency = 0.75f;
 
     void Start() {
         color = new Color32(65, 234, 101, 255);
@@ -37,6 +39,7 @@ public class Player : Character {
         numDashes = 3;
         dashCounter = numDashes;
         recoveryTime = 1f;
+        incapacitatedTime = 0.3f;
         expToNextLevel = expFormula();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PhysicsObject"), LayerMask.NameToLayer("PhysicsObject"));
     }
@@ -49,11 +52,11 @@ public class Player : Character {
         Transform equipped = transform.Find("Equipped");
         if (equipped != null && equipped.childCount > 0) {
             if (Input.GetButtonDown("Attack")) {
-                if (stamina >= 15 && Input.GetButtonDown("Attack")) {
+                if (stamina >= attackStaminaUse * staminaLeniency && Input.GetButtonDown("Attack")) {
                     bool isAttacking = equipped.GetChild(0).GetComponent<WeaponAttack>().isAttacking;
                     equipped.GetChild(0).GetComponent<Animator>().SetBool("attack", true);
                     if (!isAttacking) {
-                        stamina -= 15;
+                        stamina -= attackStaminaUse;
                         if (stamina <= 0) {
                             stamina = 0;
                             exhausted = true;
@@ -80,11 +83,15 @@ public class Player : Character {
             jumpCounter--;
         }
         //allow dashes only once, only in air
-        if (stamina >= 10 && !grounded && dashCounter > 0 && Input.GetButtonDown("Dash")) {
+        if (stamina >= dashStaminaUse * staminaLeniency && !grounded && dashCounter > 0 && Input.GetButtonDown("Dash")) {
             isDashing = true;
             dash();
-            stamina -= 10;
             dashCounter--;
+            stamina -= dashStaminaUse;
+            if (stamina <= 0) {
+                stamina = 0;
+                exhausted = true;
+            }
         } else if (isDashing) {
             dash();
         }
@@ -106,7 +113,6 @@ public class Player : Character {
         if (exhausted) {
             exhaustedTimer += Time.deltaTime;
             if (exhaustedTimer >= exhaustedTime) {
-                Debug.Log("Exhausted timer is now at " + exhaustedTimer.ToString());
                 exhausted = false;
                 exhaustedTimer = 0;
             }
