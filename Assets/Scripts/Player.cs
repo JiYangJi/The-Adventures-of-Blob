@@ -103,7 +103,7 @@ public class Player : Character {
         if (body.velocity.y <= 0) {
             body.velocity -= new Vector2(0, 1.2f);
         } else if (body.velocity.y > 0 && !Input.GetButton("Jump")) {
-            body.velocity -= new Vector2(0, 1.2f);
+            body.velocity -= new Vector2(0, 0.8f);
         }
     }
 
@@ -135,7 +135,7 @@ public class Player : Character {
     }
 
     public void increaseJumpHeight() {
-        jumpAmount += 50f;
+        jumpAmount += 100f;
     }
 
     public void increaseMaxHealth() {
