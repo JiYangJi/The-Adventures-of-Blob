@@ -95,17 +95,19 @@ public class Character : MonoBehaviour {
         }
     }
 
-    protected void dash() {
-        if (dashClock <= dashTime) {
+    protected void dash() { 
+        if (!incapacitated && dashClock <= dashTime) {
+            body.gravityScale = 0;
             if (facingRight) {
-                body.velocity += new Vector2(10*Mathf.Sqrt(maxSpeed), 0);
+                body.velocity = new Vector2(25*Mathf.Sqrt(maxSpeed), 0);
                 //body.AddForce(new Vector2(500, 0)); alternative method...
             } else {
-                body.velocity += new Vector2(-10* Mathf.Sqrt(maxSpeed), 0);
+                body.velocity = new Vector2(-25* Mathf.Sqrt(maxSpeed), 0);
             }
         } else {
             dashClock = 0;
             isDashing = false;
+            body.gravityScale = 1;
         }
         dashClock += Time.deltaTime;
 
@@ -115,12 +117,14 @@ public class Character : MonoBehaviour {
         if ((amount > 0 && !facingRight) || (amount < 0 && facingRight)) {
             facingRight = !facingRight;
             transform.localScale *= new Vector2(-1, 1);
+            isDashing = false; //changing direction takes you out of dash
         }
     }
 
     protected void jump() {
         if (!incapacitated) {
             body.velocity = new Vector2(body.velocity.x, Mathf.Sqrt(jumpAmount));
+            isDashing = false; //jumping takes you out of dash
         }
     }
 

@@ -20,7 +20,6 @@ public class CameraController : MonoBehaviour {
         transform.position = camera;
         float dist = Mathf.Sqrt(Vector2.Distance(transform.position, player.transform.position));
         float newSize = 5 + dist;
-        Debug.Log("Distance is: " + dist);
         float interp = 0;
         if (dist > 1) {
             interp = 0.01f;
@@ -38,12 +37,8 @@ public class CameraController : MonoBehaviour {
             interp = 0.07f;
         } else if (dist > 0.01) {
             interp = 0.08f;
-        } else if (dist > 0.005) {
-            interp = 0.09f;
-        } else if (dist > 0.001) {
-            interp = 0.1f;
         } else {
-            interp = 0.2f;
+            interp = 1f;
         }
         GetComponent<Camera>().orthographicSize = Mathf.Lerp(GetComponent<Camera>().orthographicSize, newSize, interp);
     }

@@ -69,6 +69,8 @@ public class Player : Character {
             jumpCounter = numJumps;
             dashCounter = numDashes;
             isDashing = false;
+            dashClock = 0;
+            body.gravityScale = 1;
         }
 
         if (!pressedJump) {
